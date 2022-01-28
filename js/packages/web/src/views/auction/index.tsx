@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button, Card, Carousel, Col, List, Row, Skeleton } from 'antd';
+import { useParams, useHistory  } from 'react-router-dom';
+import { Button, Card, Carousel, Col, List, Row, Skeleton, Modal, Input  } from 'antd';
 import { AuctionCard } from '../../components/AuctionCard';
 import { Connection } from '@solana/web3.js';
 import { AuctionViewItem } from '@oyster/common/dist/lib/models/metaplex/index';
@@ -81,11 +81,45 @@ export const AuctionItem = ({
 };
 
 export const AuctionView = () => {
+  const imageArray = [
+    '/collection2.png',
+    '/collection3.png',
+    '/collection4.png',
+    '/collection5.png',
+    '/collection6.png',
+    '/collection7.png',
+    '/collection7-1.png',
+    '/collection8.png',
+    '/collection9.png',
+    '/Rectangle 23.png',
+  ]
+  const artName = ["Overflowing Blue", "Squiggle", "Yee", "Yellow Pointing", "Red Bridge"]
+  const authorNames = [
+    "@Johnny", "@Alex", "@Timo"
+  ]
+  const priceBid= [
+    "1ETH", "1ETH", "1ETH"
+  ]
   const { width } = useWindowDimensions();
   const { id } = useParams<{ id: string }>();
+  console.log("--------> WHAT IS ID: ", id)
   const { endpoint } = useConnectionConfig();
   const auction = useAuction(id);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const history = useHistory();
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    history.push("/about/1.2")
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const art = useArt(auction?.thumbnail.metadata.pubkey);
   const { ref, data } = useExtendedArt(auction?.thumbnail.metadata.pubkey);
   const creators = useCreators(auction);
@@ -276,26 +310,10 @@ export const AuctionView = () => {
     return (
       <Row justify="center" ref={ref} gutter={[48, 0]}>
         <Col span={24} md={10} className={'img-cont-500'}>
-          <div className="auction-view" style={{ minHeight: 300 }}>
-            <Carousel
-              autoplay={false}
-              afterChange={index => setCurrentIndex(index)}
-            >
-              {items}
-            </Carousel>
+          <div className="auction-view" style={{ minHeight: 400, maxHeight: 400 }}>
+            <img src={imageArray[parseInt(id) - 1]} style={{height:400}}></img>
           </div>
-          <h6 className={'about-nft-collection'}>
-            ABOUT THIS {nftCount === 1 ? 'NFT' : 'COLLECTION'}
-          </h6>
-          <p className={'about-nft-collection a-description'}>
-            {hasDescription && <Skeleton paragraph={{ rows: 3 }} />}
-            {description ||
-              (winnerCount !== undefined && (
-                <div style={{ fontStyle: 'italic' }}>
-                  No description provided.
-                </div>
-              ))}
-          </p>
+          
           {attributes && (
             <div className={'about-nft-collection a-attributes'}>
               <h6>Attributes</h6>
@@ -318,63 +336,32 @@ export const AuctionView = () => {
 
         <Col span={24} md={14}>
           <h2 className="art-title">
-            {art.title || <Skeleton paragraph={{ rows: 0 }} />}
+            {artName[(parseInt(id) % 5)-1]}
           </h2>
+          <h6 className={'about-nft-collection'} style={{marginTop: 30, marginBottom: 30}}>
+            ABOUT THIS {nftCount === 1 ? 'NFT' : 'COLLECTION'}
+          </h6>
+          <p className={'about-nft-collection a-description'} style={{marginBottom: 60}}>
+          Showcasing famous landscapes and artworks from my village. This place holds beautiful memories of my childhood and I can’t wait to share it with the world!
+          </p>
           <Row gutter={[44, 0]}>
             <Col span={12} md={16}>
               <div className={'info-container'}>
                 <div className={'info-component'}>
                   <h6 className={'info-title'}>CREATED BY</h6>
-                  <span>{<MetaAvatar creators={creators} />}</span>
+                  <span>{authorNames[(parseInt(id) % 3) - 1]}</span>
                 </div>
-                <div className={'info-component'}>
-                  <h6 className={'info-title'}>Edition</h6>
-                  <span>
-                    {(auction?.items.length || 0) > 1 ? 'Multiple' : edition}
-                  </span>
-                </div>
-                <div className={'info-component'}>
-                  <h6 className={'info-title'}>Winners</h6>
-                  <span>
-                    {winnerCount === undefined ? (
-                      <Skeleton paragraph={{ rows: 0 }} />
-                    ) : isOpen ? (
-                      'Unlimited'
-                    ) : (
-                      winnerCount
-                    )}
-                  </span>
-                </div>
-                <div className={'info-component'}>
-                  <h6 className={'info-title'}>NFTS</h6>
-                  <span>
-                    {nftCount === undefined ? (
-                      <Skeleton paragraph={{ rows: 0 }} />
-                    ) : isOpen ? (
-                      'Open'
-                    ) : (
-                      nftCount
-                    )}
-                  </span>
-                </div>
+                
                 <div className={'info-component'}>
                   <h6 className={'info-title'}>CURRENCY</h6>
                   <span>
-                    {nftCount === undefined ? (
-                      <Skeleton paragraph={{ rows: 0 }} />
-                    ) : (
-                      `${tokenInfo?.name || 'Custom Token'} ($${
-                        tokenInfo?.symbol || 'CUSTOM'
-                      })`
-                    )}
-                    <ClickToCopy
-                      className="copy-pubkey"
-                      copyText={
-                        tokenInfo
-                          ? tokenInfo?.address
-                          : auction?.auction.info.tokenMint || ''
-                      }
-                    />
+                    {priceBid[(parseInt(id) % 3) - 1]}
+                  </span>
+                </div>
+                <div className={'info-component'}>
+                  <h6 className={'info-title'}>90% OWNED BY</h6>
+                  <span>
+                    {parseInt(id) === 1 ? "Brock Ang" : "NOT OWNED"}
                   </span>
                 </div>
               </div>
@@ -411,12 +398,13 @@ export const AuctionView = () => {
               </div>
             </Col>
           </Row>
-
-          {!auction && <Skeleton paragraph={{ rows: 6 }} />}
-          {auction && (
-            <AuctionCard auctionView={auction} hideDefaultAction={false} />
-          )}
-          {!auction?.isInstantSale && <AuctionBids auctionView={auction} />}
+          <div style={{marginTop: 60}} />
+          <Button onClick={()=>showModal()}>Make Offer</Button>
+          <div style={{marginTop: 60}}/>
+          {id === "1" ? null : <Button>Buy now</Button>}
+          <Modal title="Make an offer" visible={isModalVisible} onOk={()=>handleOk()} onCancel={()=>handleCancel()}>
+            <Input placeholder="Key in your price" style={{marginTop: 30}}></Input>
+          </Modal>
         </Col>
       </Row>
     );
