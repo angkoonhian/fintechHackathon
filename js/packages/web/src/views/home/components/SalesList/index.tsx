@@ -113,7 +113,7 @@ export const SalesListView = () => {
                   auctionDummy.map((auction, index) => (
                     <Link
                       key={auction.auction.pubkey}
-                      to={`/about`}
+                      to={`/about/1`}
                     >
                       {/* <AuctionRenderCard auctionView={auction} /> */}
                       <Card hoverable={true} className={`auction-render-card`} bordered={false}>

@@ -58,25 +58,26 @@ export const Banner = (props: {
           </div>
         </div>
       </div>
-      <div>
-        <div>
+      <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <span style={{fontSize: 50, marginTop: 90, marginBottom: 30}}>
           About us
-        </div>
-        <div>First ever platform to offer NFT ETFs. Buy and sell parts of popular NFTs with us today! </div>
-        <div style={{flex: 1, flexDirection: 'row'}}>
+        </span>
+        <div style={{marginTop: 30}}/>
+        <span style={{fontSize: 20, marginBottom: 30}}>First ever platform to offer NFT ETFs. Buy and sell parts of popular NFTs with us today! </span>
+        <div style={{flex: 1, flexDirection: 'row', marginTop: 60}}>
           <img src={'/Group 18.png'} style={{width: '50%', float:'left'}}>
           </img>
-          <div style={{width: '50%', float:'right'}}>
-            <p>Get Popular NFT at cheaper</p>
-            <p>Through the use of ETFs, we create a collection-ETF called exchange traded NFT (ETNFT) where it would be significantly cheaper than buying the whole NFT itself. Similar to other popular ETFs availalbe in the stock market, this brings in the idea of stability into the NFT market. This allows you to be able to own a fraction of NFTs through the use of fractional NFTs.</p>
-            <button>
-              Show more
-            </button>
+          <div style={{width: '50%', float:'right', paddingLeft: 30, marginTop: 300}}>
+            <span style={{fontSize: 40, marginTop: 30, marginBottom: 30}}>Get Popular NFT at cheaper rates</span>
+            <div style={{marginTop: 30}} />
+            <span style={{fontSize: 20, marginTop: 30, marginBottom: 30}}>Through the use of ETFs, we create a collection-ETF called exchange traded NFT (ETNFT) where it would be significantly cheaper than buying the whole NFT itself. Similar to other popular ETFs availalbe in the stock market, this brings in the idea of stability into the NFT market. This allows you to be able to own a fraction of NFTs through the use of fractional NFTs.</span>
+            
           </div>
         </div>
-        <div>
-          <p>ETNFTs</p>
-          <p>Explore the ETNFTs in the marketplace!</p>
+        <div style={{width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+            <span style={{fontSize: 40, marginTop: 90, marginBottom: 30}}>ETNFTs</span>
+          <div/>
+          <span style={{fontSize: 20, marginTop: 30, marginBottom: 30}}>Explore the ETNFTs in the marketplace!</span>
         </div>
       </div>
     </>

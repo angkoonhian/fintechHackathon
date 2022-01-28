@@ -1,8 +1,8 @@
-import React from 'react';
-import { Layout,Row, Col, Card, Button, Avatar  } from 'antd';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Layout,Row, Col, Card, Button, Avatar, Modal, Input  } from 'antd';
 import { StaticPage } from '../../components/StaticPage';
 import { data } from './staticData';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 
 const {Meta} = Card
 export const StaticPageView = () => {
@@ -80,7 +80,20 @@ export const StaticPageView = () => {
     "1ETH", "1ETH", "1ETH"
   ]
   const { val } = useParams<{ val: string }>();
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+  const history = useHistory();
 
+  const handleOk = () => {
+    setIsModalVisible(false);
+    history.push("/about/1.3")
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   console.log("----------> what is val: ", val)
   return (
     <Layout style={{ margin: 0, alignItems: 'center' }}>
@@ -116,20 +129,23 @@ export const StaticPageView = () => {
               <span style={{color: 'lightgray', fontSize: '20px'}}>Vacancies Left</span>
             </div>
             <div>
-              <span style={{ fontSize: '15px'}}>3/10</span> 
+              <span style={{ fontSize: '15px'}}>{val === '1.3' ? '2/10' : '3/10'}</span> 
             </div>
             <div>
               <span style={{color: 'lightgray', fontSize: '20px', marginTop: '10px'}}>Current Price</span>
             </div>
             <div>
-              <span style={{ fontSize: '15px', marginBottom: '10px'}}>{val === '' ? '0.1 ETH' : '0.11ETH'}</span>
+              <span style={{ fontSize: '15px', marginBottom: '10px'}}>{val === '1' ? '0.1 ETH' : '0.11ETH'}</span>
             </div>
           </div>
           <div style={{position: 'absolute', bottom: 30, right: 20, paddingRight: '35px'}}>
-            <Button>
+            <Button onClick={()=>showModal()}>
               Buy now
             </Button>
           </div>
+          <Modal title="About to purchase Overflowing Blue ETF" visible={isModalVisible} onOk={()=>handleOk()} onCancel={()=>handleCancel()}>
+            <span>You are about to purchase a spot in the Overflowing Blue ETF, please click Okay to proceed.</span>
+          </Modal>
         </Card>
         </div>
       </div>
