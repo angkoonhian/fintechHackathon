@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect } from 'react';
-
 export const Banner = (props: {
   src: string;
   useBannerBg: boolean;
@@ -43,7 +42,6 @@ export const Banner = (props: {
       </div>
       <div
         id={'current-banner'}
-        style={{ backgroundImage: `url(${props.src})` }}
       >
         <span id={'gradient-banner'}></span>
         <div id="banner-inner">
@@ -55,9 +53,30 @@ export const Banner = (props: {
           {props.children}
           <div className="powered-by">
             <span>
-              POWERED BY <b>METAPLEX</b>
+              POWERED BY <b>SB2J</b>
             </span>
           </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          About us
+        </div>
+        <div>First ever platform to offer NFT ETFs. Buy and sell parts of popular NFTs with us today! </div>
+        <div style={{flex: 1, flexDirection: 'row'}}>
+          <img src={'/Group 18.png'} style={{width: '50%', float:'left'}}>
+          </img>
+          <div style={{width: '50%', float:'right'}}>
+            <p>Get Popular NFT at cheaper</p>
+            <p>Through the use of ETFs, we create a collection-ETF called exchange traded NFT (ETNFT) where it would be significantly cheaper than buying the whole NFT itself. Similar to other popular ETFs availalbe in the stock market, this brings in the idea of stability into the NFT market. This allows you to be able to own a fraction of NFTs through the use of fractional NFTs.</p>
+            <button>
+              Show more
+            </button>
+          </div>
+        </div>
+        <div>
+          <p>ETNFTs</p>
+          <p>Explore the ETNFTs in the marketplace!</p>
         </div>
       </div>
     </>
