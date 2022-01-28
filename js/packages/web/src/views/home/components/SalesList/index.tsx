@@ -2,6 +2,7 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { Col, Layout, Row, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { Card, CardProps } from 'antd';
 
 import { useMeta } from '../../../../contexts';
 import { CardLoader } from '../../../../components/MyLoader';
@@ -28,12 +29,42 @@ export const SalesListView = () => {
   const { connected } = useWallet();
   const { auctions, hasResaleAuctions } = useAuctionsList(activeKey);
 
+  const auctionDummy = [
+    {
+      auction: {
+        pubkey: "1"
+      }
+    },
+    {
+      auction: {
+        pubkey: "2"
+      }
+    },
+    {
+      auction: {
+        pubkey: "3"
+      }
+    }
+  ]
+  const artName = ["Overflowing Blue ETF", "Squiggle ETF", "Yee ETF"]
+  const imageArray = [
+    '/collect.png',
+    '/Group 28.png',
+    '/Group 29.png'
+  ]
+
+  const authorNames = [
+    "@Johnny", "@Alex", "@Timo"
+  ]
+  const priceBid= [
+    "0.005ETH", "0.003ETH", "0.005ETH"
+  ]
   return (
     <>
       <Banner
         src="/main-banner.svg"
-        headingText="The amazing world of Metaplex."
-        subHeadingText="Buy exclusive Metaplex NFTs."
+        headingText="The amazing world of SB2J and ETNFTs."
+        subHeadingText="Buy exclusive ETNFTs."
         actionComponent={<HowToBuyModal buttonClassName="secondary-btn" />}
         useBannerBg
       />
@@ -76,15 +107,36 @@ export const SalesListView = () => {
             </Row>
             <Row>
               <div className="artwork-grid">
-                {isLoading &&
-                  [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
                 {!isLoading &&
-                  auctions.map(auction => (
+                  [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
+                {isLoading &&
+                  auctionDummy.map((auction, index) => (
                     <Link
                       key={auction.auction.pubkey}
-                      to={`/auction/${auction.auction.pubkey}`}
+                      to={`/about`}
                     >
-                      <AuctionRenderCard auctionView={auction} />
+                      {/* <AuctionRenderCard auctionView={auction} /> */}
+                      <Card hoverable={true} className={`auction-render-card`} bordered={false}>
+                        <div className={'card-art-info'}>
+                          <div className="auction-gray-wrapper">
+                            <div className={'card-artist-info'}>
+                              <span>{authorNames[index]}</span>
+                            </div>
+                            <div className={'art-content-wrapper'}>
+                              <img src={imageArray[index]} style={{width: '100%', height: '100%'}}/>
+                            </div>
+                            <div className={'art-name'}>{artName[index]}</div>
+                            <div className="auction-info-container">
+                              <div className={'info-message'}>ENDING IN</div>
+                              <span>23:12:01</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="card-bid-info">
+                          {/* <span className={'text-uppercase info-message'}>{status}</span> */}
+                          <span>{priceBid[index]}</span>
+                        </div>
+                      </Card>
                     </Link>
                   ))}
               </div>
