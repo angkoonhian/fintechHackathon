@@ -126,16 +126,16 @@ export const StaticPageView = () => {
           </div>
           <div style={{position: 'absolute', bottom: 30, left: '0', paddingLeft: '15px'}}>
             <div>
-              <span style={{color: 'lightgray', fontSize: '20px'}}>Vacancies Left</span>
+              <span style={{color: 'lightgray', fontSize: '30px'}}>Vacancies Left</span>
             </div>
             <div>
-              <span style={{ fontSize: '15px'}}>{val === '1.3' ? '2/10' : '3/10'}</span> 
+              <span style={{ fontSize: '25px'}}>{val === '1.3' ? '2/10' : '3/10'}</span> 
             </div>
             <div>
-              <span style={{color: 'lightgray', fontSize: '20px', marginTop: '10px'}}>Current Price</span>
+              <span style={{color: 'lightgray', fontSize: '30px', marginTop: '10px'}}>Current Price</span>
             </div>
             <div>
-              <span style={{ fontSize: '15px', marginBottom: '10px'}}>{val === '1' ? '0.1 ETH' : '0.11ETH'}</span>
+              <span style={{ fontSize: '25px', marginBottom: '10px'}}>{val === '1' ? '0.1 ETH' : '0.11ETH'}</span>
             </div>
           </div>
           <div style={{position: 'absolute', bottom: 30, right: 20, paddingRight: '35px'}}>
