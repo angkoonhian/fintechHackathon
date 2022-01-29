@@ -107,9 +107,9 @@ export const SalesListView = () => {
             </Row>
             <Row>
               <div className="artwork-grid">
-                {!isLoading &&
-                  [...Array(10)].map((_, idx) => <CardLoader key={idx} />)}
-                {isLoading &&
+                {/* {!isLoading &&
+                  [...Array(10)].map((_, idx) => <CardLoader key={idx} />)} */}
+                {
                   auctionDummy.map((auction, index) => (
                     <Link
                       key={auction.auction.pubkey}
